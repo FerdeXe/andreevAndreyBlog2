@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ form_title }}</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Search</h4>
+                    <form method="get" action="{% url 'post_search' %}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..." name="q" value="{{ request.GET.q }}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="submit">Go!</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Tags</h4>
+                    <div class="list-group">
+                        {% for tag in tags %}
+                        <a href="{% url 'tag_filter' tag.name %}" class="list-group-item">{{ tag.name }} <span class="badge badge-secondary badge-pill">{{ tag.post_set.count }}</span></a>
+                        {% empty %}
+                        <p>No tags yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end block %}

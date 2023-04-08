@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Blog{% end block %}</title>
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+</head>
+<body>
+    {% include 'blog/navbar.html' %}
+    <div class="container">
+        {% block content %}
+        {% end block %}
+    </div>
+</body>
+</html>
